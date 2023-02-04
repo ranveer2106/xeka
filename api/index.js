@@ -2,6 +2,10 @@ const express = require("express")
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
+
+const authRoute = require("./routes/auth")
+app.use(express.json());
+
 const mongoose = require("mongoose");
 mongoose.set('strictQuery', true);
 
@@ -11,6 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test', {
     // useCreateIndex: true
 }).then(console.log("Connected to MongoDB")).catch(err => console.log(err))
 
+app.use("/api/auth", authRoute)
 // console.log(process.env["MONGO_URL"]);
 
 dotenv.config();
